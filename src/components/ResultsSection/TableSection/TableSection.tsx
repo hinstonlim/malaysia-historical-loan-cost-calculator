@@ -14,7 +14,7 @@ export default function TableSection({
   if (!results.length) return null;
 
   return (
-    <div className="h-full flex-4 flex-col space-y-2 md:flex">
+    <div className="h-full flex-5 flex-col space-y-2 md:flex">
       <div>
         {results ? (
           <TableSectionDataTable

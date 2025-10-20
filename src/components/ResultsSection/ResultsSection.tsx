@@ -59,7 +59,7 @@ export default function ResultsSection({
       {inputs && (
         <Card className="my-4 px-4 py-2">
           <DetailsView
-            className="grid-cols-5"
+            className="grid-cols-1 sm:grid-cols-3 md:grid-cols-5"
             content={[
               {
                 title: "Loan Amount",
@@ -85,7 +85,7 @@ export default function ResultsSection({
           />
         </Card>
       )}
-      <div className="flex flex-row gap-4">
+      <div className="flex flex-col lg:flex-row gap-4">
         <TableSection results={results} />
         <CostChart data={results} />
       </div>

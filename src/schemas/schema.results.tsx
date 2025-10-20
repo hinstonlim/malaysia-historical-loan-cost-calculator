@@ -5,6 +5,7 @@ export const resultsSchema = z.object({
   principal: z.number(),
   interest: z.number(),
   totalCost: z.number(),
+  repaymentPerMonth: z.number(),
   adjustedRate: z.number(),
 });
 

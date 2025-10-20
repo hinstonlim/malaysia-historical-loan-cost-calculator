@@ -53,6 +53,18 @@ export const columns: ColumnDef<ResultsSchema>[] = [
     enableSorting: true,
   },
   {
+    accessorKey: "repaymentPerMonth",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Per Month" />
+    ),
+    cell: ({ row }) => (
+      <div className="flex items-center gap-2">
+        {beautifyPrice(row.original.repaymentPerMonth)}
+      </div>
+    ),
+    enableSorting: true,
+  },
+  {
     accessorKey: "adjustedRate",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Rate" />

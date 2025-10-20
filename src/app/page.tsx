@@ -79,7 +79,7 @@ export default function Page() {
         Malaysia Historical Loan Cost Calculator (1975–2022)
       </Label>
       <Separator />
-      <div className="flex flex-row gap-6">
+      <div className="flex flex-col gap-6 xl:flex-row">
         <div className="flex flex-1 flex-col mt-6">
           <LoanForm onSubmit={handleCalculate} />
           <MalaysiaOverviewDialog
