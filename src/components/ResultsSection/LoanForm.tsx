@@ -27,15 +27,15 @@ import { Checkbox } from "../ui/checkbox";
 
 const formSchema = z
   .object({
-    amount: z.number(),
-    fee: z.number(),
+    amount: z.string(),
+    fee: z.string(),
     feeType: z.string(),
     feeTreatment: z.string(),
     bnmAdjustment: z.boolean(),
   })
   .superRefine((data, ctx) => {
     if (data.feeType === FeeType.PERCENT) {
-      if (data.fee < 0 || data.fee >= 100) {
+      if (Number(data.fee) < 0 || Number(data.fee) >= 100) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: "Fee percentage must be between 0% and 100%",
@@ -45,7 +45,7 @@ const formSchema = z
     }
 
     if (data.feeType === FeeType.FLAT) {
-      if (data.fee < 0) {
+      if (Number(data.fee) < 0) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: "Fee must be greater than RM0",
@@ -63,8 +63,8 @@ export default function LoanForm({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      amount: 0,
-      fee: 0,
+      amount: "0.00",
+      fee: "0.00",
       feeType: FeeType.FLAT,
       feeTreatment: FeeTreatment.UPFRONT,
       bnmAdjustment: false,
@@ -75,7 +75,15 @@ export default function LoanForm({
     <Card className="p-6">
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(onSubmit)}
+          onSubmit={form.handleSubmit((data) => {
+            onSubmit({
+              amount: Number(data.amount),
+              fee: Number(data.fee),
+              feeType: data.feeType as FeeType,
+              feeTreatment: data.feeTreatment as FeeTreatment,
+              bnmAdjustment: data.bnmAdjustment,
+            });
+          })}
           className="space-y-8 flex flex-col"
         >
           <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-1 items-start">
@@ -89,13 +97,7 @@ export default function LoanForm({
                     <FormControl>
                       <Input
                         {...field}
-                        type="number"
-                        value={field.value ?? ""}
-                        step="any"
-                        onChange={(e) => {
-                          const val = e.target.valueAsNumber;
-                          field.onChange(Number.isNaN(val) ? 0 : val);
-                        }}
+                        type="text"
                         onInput={formatAmount}
                       />
                     </FormControl>
@@ -117,13 +119,7 @@ export default function LoanForm({
                     <FormControl>
                       <Input
                         {...field}
-                        type="number"
-                        value={field.value ?? ""}
-                        step="any"
-                        onChange={(e) => {
-                          const val = e.target.valueAsNumber;
-                          field.onChange(Number.isNaN(val) ? 0 : val);
-                        }}
+                        type="text"
                         onInput={formatAmount}
                       />
                     </FormControl>
@@ -144,7 +140,7 @@ export default function LoanForm({
                         defaultValue={field.value}
                         onValueChange={(value) => {
                           field.onChange(value);
-                          form.setValue("fee", 0);
+                          form.setValue("fee", "0");
                         }}
                       >
                         <SelectTrigger>
