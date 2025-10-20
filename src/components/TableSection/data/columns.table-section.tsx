@@ -1,11 +1,11 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { ResultsTableDataSchema } from "./schema.results-table";
 import { DataTableColumnHeader } from "@/components/ui/data-table/data-table-column-header";
 import { beautifyPrice } from "@/lib/utils";
+import { ResultsSchema } from "@/schemas/schema.results";
 
-export const columns: ColumnDef<ResultsTableDataSchema>[] = [
+export const columns: ColumnDef<ResultsSchema>[] = [
   {
     accessorKey: "year",
     header: ({ column }) => (

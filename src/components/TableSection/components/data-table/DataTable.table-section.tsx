@@ -18,15 +18,15 @@ import {
 import { DataTable } from "@/components/ui/data-table/data-table";
 import { DataTablePagination } from "@/components/ui/data-table/data-table-pagination";
 
-interface ResultsDataTableProps<TData, TValue> {
+interface TableSectionTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export function ResultsDataTable<TData, TValue>({
+export function TableSectionDataTable<TData, TValue>({
   columns,
   data,
-}: ResultsDataTableProps<TData, TValue>) {
+}: TableSectionTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
