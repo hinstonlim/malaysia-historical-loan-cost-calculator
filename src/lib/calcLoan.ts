@@ -56,14 +56,11 @@ export function calculateLoan(rate: number, inputs: LoanFormSchema) {
       ? totalRepayment + feeValue
       : totalRepayment;
 
-  const repaymentPerMonth = monthlyPayment;
-
   return {
     adjustedRate,
     principal,
     interest,
     totalCost,
     monthlyPayment,
-    repaymentPerMonth,
   };
 }

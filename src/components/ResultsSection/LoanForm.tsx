@@ -16,7 +16,13 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { useForm } from "react-hook-form";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 import { Checkbox } from "../ui/checkbox";
 
 const formSchema = z
@@ -85,6 +91,7 @@ export default function LoanForm({
                         {...field}
                         type="number"
                         value={field.value ?? ""}
+                        step="any"
                         onChange={(e) => {
                           const val = e.target.valueAsNumber;
                           field.onChange(Number.isNaN(val) ? 0 : val);
@@ -112,6 +119,7 @@ export default function LoanForm({
                         {...field}
                         type="number"
                         value={field.value ?? ""}
+                        step="any"
                         onChange={(e) => {
                           const val = e.target.valueAsNumber;
                           field.onChange(Number.isNaN(val) ? 0 : val);
