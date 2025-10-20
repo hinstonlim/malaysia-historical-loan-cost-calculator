@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect } from "react";
-import LoanForm from "@/components/LoanForm";
 import { fetchRates } from "@/lib/fetchRates";
 import { calculateLoan } from "@/lib/calcLoan";
 import { Separator } from "@/components/ui/separator";
@@ -9,7 +8,8 @@ import { Label } from "@/components/ui/label";
 import { Spinner } from "@/components/ui/spinner";
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import { RateDataSchema } from "@/schemas/schema.rateData";
-import ResultsSection from "@/components/ResultsSection";
+import LoanForm from "@/components/ResultsSection/LoanForm";
+import ResultsSection from "@/components/ResultsSection/ResultsSection";
 
 export default function Page() {
   const [rates, setRates] = useState<RateDataSchema[]>([]);

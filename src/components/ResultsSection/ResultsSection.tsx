@@ -1,6 +1,4 @@
 "use client";
-import CostChart from "@/components/CostChart";
-import TableSection from "@/components/TableSection/TableSection";
 import { LoanFormSchema } from "@/schemas/schema.loanForm";
 import { Label } from "@/components/ui/label";
 import { RateDataSchema } from "@/schemas/schema.rateData";
@@ -13,6 +11,8 @@ import { Button } from "@/components/ui/button";
 import { downloadLendingRateAsCSV } from "@/lib/downloadLendingRateAsCSV";
 import { downloadResultsAsCSV } from "@/lib/downloadResultsAsCSV";
 import { ResultsSchema } from "@/schemas/schema.results";
+import CostChart from "./CostChart";
+import TableSection from "./TableSection/TableSection";
 
 export default function ResultsSection({
   results,
