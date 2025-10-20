@@ -4,14 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { formatAmount } from "@/lib/utils";
 import { FeeTreatment, FeeType } from "@/constants/enum-constants";
 import { LoanFormSchema } from "@/schemas/schema.loanForm";
-import { Checkbox } from "@radix-ui/react-checkbox";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@radix-ui/react-select";
 import { Button } from "../ui/button";
 import { Card } from "../ui/card";
 import {
@@ -24,6 +16,8 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { useForm } from "react-hook-form";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { Checkbox } from "../ui/checkbox";
 
 const formSchema = z
   .object({

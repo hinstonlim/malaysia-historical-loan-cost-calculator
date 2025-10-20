@@ -10,18 +10,37 @@ import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 import { RateDataSchema } from "@/schemas/schema.rateData";
 import LoanForm from "@/components/ResultsSection/LoanForm";
 import ResultsSection from "@/components/ResultsSection/ResultsSection";
+import { Dialog } from "@/components/ui/dialog";
+import { MalaysiaOverviewDialog } from "@/components/MalaysiaOverviewDialog";
+import { fetchMalaysiaOverview } from "@/lib/fetchMalaysiaOverview";
 
 export default function Page() {
   const [rates, setRates] = useState<RateDataSchema[]>([]);
+  const [malaysiaOverview, setMalaysiaOverview] = useState<any>(null);
   const [results, setResults] = useState<any[]>([]);
   const [inputs, setInputs] = useState<LoanFormSchema | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [malaysiaOverviewError, setMalaysiaOverviewError] = useState(false);
 
   useEffect(() => {
-    fetchRates()
-      .then(setRates)
-      .catch(() => setError("Failed to fetch data"))
+    setLoading(true);
+
+    // For partial failure handling
+    Promise.allSettled([fetchRates(), fetchMalaysiaOverview()])
+      .then(([ratesResult, overviewResult]) => {
+        if (ratesResult.status === "fulfilled") {
+          setRates(ratesResult.value);
+        } else {
+          setError("Failed to fetch rate data");
+        }
+
+        if (overviewResult.status === "fulfilled") {
+          setMalaysiaOverview(overviewResult.value);
+        } else {
+          setMalaysiaOverviewError(true);
+        }
+      })
       .finally(() => setLoading(false));
   }, []);
 
@@ -63,6 +82,10 @@ export default function Page() {
       <div className="flex flex-row gap-6">
         <div className="flex flex-1 flex-col mt-6">
           <LoanForm onSubmit={handleCalculate} />
+          <MalaysiaOverviewDialog
+            malaysiaOverview={malaysiaOverview}
+            error={malaysiaOverviewError}
+          />
         </div>
         {/* <Separator orientation="vertical" className="h-auto" /> */}
         <div className="flex flex-4 mt-6">

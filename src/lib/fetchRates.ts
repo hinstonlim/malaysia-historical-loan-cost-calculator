@@ -1,3 +1,4 @@
+import axios from "axios";
 import { RateDataSchema } from "@/schemas/schema.rateData";
 
 export async function fetchRates(): Promise<RateDataSchema[]> {
@@ -5,13 +6,9 @@ export async function fetchRates(): Promise<RateDataSchema[]> {
     "https://api.worldbank.org/v2/country/MY/indicator/FR.INR.LEND?format=json&per_page=1000";
 
   try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
+    const { data } = await axios.get(url);
 
-    const json = await response.json();
-    const rawRates = json?.[1] ?? [];
+    const rawRates = data?.[1] ?? [];
 
     const rates: RateDataSchema[] = rawRates
       .filter((item: any) => item?.value !== null)
@@ -24,7 +21,6 @@ export async function fetchRates(): Promise<RateDataSchema[]> {
 
     return rates;
   } catch (error) {
-    console.error("Error fetching rates:", error);
-    return [];
+    throw new Error("Failed to fetch rates");
   }
 }

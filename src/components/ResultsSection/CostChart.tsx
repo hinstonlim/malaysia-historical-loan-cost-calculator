@@ -52,7 +52,7 @@ export default function CostChart({ data }: { data: ResultsSchema[] }) {
                 value: "Cost (RM)",
                 angle: -90,
                 position: "insideLeft",
-                offset: -10,
+                offset: -15,
                 style: { textAnchor: "middle" },
               }}
             />

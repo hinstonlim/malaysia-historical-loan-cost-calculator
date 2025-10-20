@@ -12,7 +12,10 @@ export const formatAmount = (e: React.FormEvent<HTMLInputElement>) => {
   input.value = isNaN(Number(formattedValue)) ? "" : formattedValue;
 };
 
-export const beautifyNumber = (number: number) => {
+export const beautifyNumber = (number: number | undefined) => {
+  if (number === null || number === undefined) {
+    return "N/A";
+  }
   return number.toLocaleString("en-US");
 };
 

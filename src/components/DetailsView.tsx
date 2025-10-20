@@ -4,10 +4,12 @@ import Image from "next/image";
 
 export const DetailsView = ({
   content,
-  maxItemPerRow = 2,
+  maxItemPerRow = 3,
+  className,
 }: {
   content: any[];
   maxItemPerRow?: number;
+  className?: string;
 }) => {
   // Filter the content array (if content[x].description is null) to remove any falsy values
   // If content[x].showNotSubmitted is true, no need to filter
@@ -20,7 +22,7 @@ export const DetailsView = ({
 
   return (
     <div
-      className={`grid gap-4 md:grid-cols-${maxItemPerRow} lg:grid-cols-5`}
+      className={`grid gap-4 grid-cols-${maxItemPerRow} ${className ? className : ""}`}
     >
       {content.map((item, index) => {
         return (

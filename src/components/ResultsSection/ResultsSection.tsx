@@ -59,7 +59,7 @@ export default function ResultsSection({
       {inputs && (
         <Card className="my-4 px-4 py-2">
           <DetailsView
-            maxItemPerRow={4}
+            className="grid-cols-5"
             content={[
               {
                 title: "Loan Amount",
